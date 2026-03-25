@@ -36,6 +36,12 @@ def apply_theme():
         padding-top: 1.0rem;
         padding-bottom: 2rem;
     }}
+    .kpi-card:hover,
+    .metric-list div:hover {{
+    transform: translateY(-2px);
+    box-shadow: 0 10px 24px rgba(15,23,42,0.12);
+    }}
+    
 
     [data-testid="stHeader"] {{
         background: rgba(255,255,255,0);
@@ -87,6 +93,7 @@ def apply_theme():
         margin: 10px 0 0 0;
         font-size: 1.04rem;
     }}
+    
 
     /* Cards */
     .kpi-card {{
@@ -110,7 +117,21 @@ def apply_theme():
         font-weight: 800;
         color: {COLORS["text"]} !important;
         line-height: 1.1;
+    }} 
+
+    .fade-in {{
+        animation: fadeIn 0.6s ease-in-out;
     }}
+    @keyframes fadeIn {{
+    from {{
+        opacity: 0;
+        transform: translateY(8px);
+    }}
+    to {{
+        opacity: 1;
+        transform: translateY(0);
+    }}
+}}
 
     .kpi-bar {{
         height: 5px;
@@ -285,14 +306,27 @@ def chips(items):
 
 def top_list(items):
     html = '<div class="metric-list">'
+    
     for title, subtitle in items:
         html += f'''
-        <div class="metric-item">
-            <div class="metric-title">{title}</div>
-            <div class="metric-sub">{subtitle}</div>
+        <div style="
+            padding:10px 6px;
+            border-bottom:1px solid #EAF0F6;
+        ">
+            <div style="
+                font-weight:700;
+                font-size:0.98rem;
+                color:#0F172A;
+            ">{title}</div>
+            <div style="
+                font-size:0.9rem;
+                color:#475569;
+            ">{subtitle}</div>
         </div>
         '''
+    
     html += '</div>'
+    
     st.markdown(html, unsafe_allow_html=True)
 
 def format_plotly_chart(fig, x_title="", y_title="", show_legend=False, legend_title=""):

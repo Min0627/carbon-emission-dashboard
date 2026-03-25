@@ -83,11 +83,26 @@ with col_map:
 with col_side:
     st.markdown("### Top emitters")
     top5 = map_data.head(5)
-    top_items = [
-        (row["country"], f"Emission: {row['emission']:,.0f}")
-        for _, row in top5.iterrows()
-    ]
-    top_list(top_items)
+
+    for _, row in top5.iterrows():
+        st.markdown(f"""
+        <div style="
+            background:white;
+            border-radius:16px;
+            padding:14px 16px;
+            margin-bottom:10px;
+            box-shadow:0 6px 18px rgba(15,23,42,0.08);
+            transition: all 0.2s ease;
+        ">
+            <div style="font-weight:700; font-size:1rem; color:#0F172A;">
+                {row['country']}
+            </div>
+            <div style="margin-top:4px; color:#64748B9; font-size:0.9rem;">
+                Emission: {row['emission']:,.0f}
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
+    
 
 st.markdown("### Comparison and detail")
 
