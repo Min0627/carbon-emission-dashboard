@@ -15,7 +15,11 @@ hero(
 )
 
 sector_options = sorted(monthly["sector"].unique())
-selected_sector = st.selectbox("Choose one sector", sector_options)
+selected_sector = st.selectbox(
+    "Choose one sector",
+    sector_options,
+    help="Select a sector to explore its contribution and time trend."
+)
 
 sector_summary = monthly.groupby("sector", as_index=False)["emission"].sum().sort_values("emission", ascending=False)
 sector_data = monthly[monthly["sector"] == selected_sector]
